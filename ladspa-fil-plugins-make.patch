@@ -1,0 +1,26 @@
+--- FIL-plugins-0.1.0/Makefile.orig	2005-05-17 23:05:50.000000000 +0200
++++ FIL-plugins-0.1.0/Makefile	2016-09-26 21:29:50.674501286 +0200
+@@ -1,19 +1,20 @@
+-
++CXX=g++
+ CPPFLAGS += -I. -fPIC -D_REENTRANT -Wall -O3
++INSTALL_PLUGINS_DIR=/usr/lib/ladspa
+ 
+ 
+ all:	filters.so
+ 
+ 
+ filters.so:	filters.o filters_if.o exp2ap.o
+-	g++ -shared filters.o filters_if.o exp2ap.o -o filters.so
++	$(CXX) -shared filters.o filters_if.o exp2ap.o -o filters.so
+ 
+ filters.o:	ladspaplugin.h filters.h
+ filters_if.o:	ladspaplugin.h filters.h
+ 
+ 
+ install:
+-	cp  *.so /usr/lib/ladspa
++	cp  *.so $(DESTDIR)$(INSTALL_PLUGINS_DIR)
+ 
+ 
+ DIR := $(shell basename `pwd`)
