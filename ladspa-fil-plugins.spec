@@ -1,19 +1,17 @@
 Summary:	FIL (equalizer filter) LADSPA plugin
 Summary(pl.UTF-8):	Wtyczka LADSPA FIL (filtr korektora)
 Name:		ladspa-fil-plugins
-Version:	0.1.0
+Version:	0.3.0
 Release:	1
 License:	GPL v2+
 Group:		Applications/Sound
-#Source0Download: http://users.skynet.be/solaris/linuxaudio/getit.html
-Source0:	http://users.skynet.be/solaris/linuxaudio/downloads/FIL-plugins-%{version}.tar.bz2
-# Source0-md5:	6be67349d51191435ba8b5b124440f01
+Source0:	http://kokkinizita.linuxaudio.org/linuxaudio/downloads/FIL-plugins-%{version}.tar.bz2
+# Source0-md5:	39f34be516752a9740a65547e1128124
 Patch0:		%{name}-make.patch
-URL:		http://users.skynet.be/solaris/linuxaudio/
+URL:		http://kokkinizita.linuxaudio.org/linuxaudio/ladspa/index.html
 BuildRequires:	ladspa-devel
 BuildRequires:	libstdc++-devel
 Requires:	ladspa-common
-Obsoletes:	ladspa-mcp-plugins-alsa-modular-synth-examples
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -27,9 +25,11 @@ Wtyczka LADSPA FIL (filtr korektora).
 %patch0 -p1
 
 %build
+CPPFLAGS="%{rpmcppflags}" \
+CXXFLAGS="%{rpmcxxflags}" \
+LDFLAGS="%{rpmldflags}" \
 %{__make} \
-	CXX="%{__cxx}" \
-	CPPFLAGS="-I. -fPIC -D_REENTRANT -Wall %{rpmcflags}"
+	CXX="%{__cxx}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
